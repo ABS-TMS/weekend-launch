@@ -46,6 +46,11 @@
   .cta p { color: #C8C5BC; font-size: 14.5px; margin-bottom: 20px; }
   .cta-btn { display: inline-block; background: var(--gold); color: var(--navy); font-weight: 700; padding: 14px 32px; border-radius: 6px; text-decoration: none; font-size: 15px; }
 
+  .toolbar { background: var(--white); border-bottom: 1px solid #DCD5C6; padding: 12px 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .toolbar-btn { display: flex; align-items: center; gap: 6px; background: var(--off); border: 1px solid #DCD5C6; border-radius: 6px; padding: 8px 14px; font-size: 13px; font-weight: 600; color: var(--navy); text-decoration: none; cursor: pointer; transition: background .15s; }
+  .toolbar-btn:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+  .toolbar-btn.copied { background: var(--teal); color: var(--white); border-color: var(--teal); }
+
   .agent-notice { background: #FDECEA; border-left: 4px solid #A33B2C; border-radius: 6px; padding: 14px 18px; margin-bottom: 32px; font-size: 13.5px; color: var(--navy); }
   .agent-notice strong { color: #A33B2C; }
 
@@ -60,6 +65,12 @@
   <h1>Weekend Launch</h1>
   <p>A faster, more competitive way to sell — priced to draw a crowd, shown on our terms, sold at true value.</p>
 </header>
+
+<div class="toolbar">
+  <a class="toolbar-btn" href="./weekend-launch-handout.pdf" target="_blank">📄 Download PDF Handout</a>
+  <a class="toolbar-btn" href="./weekend-launch-presentation.pptx">📊 Download Presentation (PPTX)</a>
+  <button class="toolbar-btn" id="copyLinkBtn" onclick="copyPageLink()">🔗 Copy Link</button>
+</div>
 
 <div class="wrap">
 
@@ -152,6 +163,21 @@
     }
   }
   loadLiveBadge();
+
+  function copyPageLink() {
+    const btn = document.getElementById('copyLinkBtn');
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = '✓ Link Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      alert('Could not copy automatically — link: ' + window.location.href);
+    });
+  }
 </script>
 
 </body>
